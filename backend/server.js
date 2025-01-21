@@ -1,21 +1,21 @@
 import Fastify from "fastify";
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from "@prisma/client";
 
 const app = Fastify();
-const prisma = new PrismaClient()
-
-app.get("/users", async (rep) => {
-  rep(await prisma.user.findMany())
-});
+const prisma = new PrismaClient();
 
 app.post("/users", async (req, rep) => {
   await prisma.user.create({
     data: {
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password
-    }
-  }) 
+      password: req.body.password,
+    },
+  });
+
+  console.log(req.body);
+  
+  rep.status(201).send({ message: "User created!" });
 });
 
 try {

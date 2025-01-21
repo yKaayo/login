@@ -10,7 +10,7 @@ export default {
         'blue': '#1152be'
       },
       fontFamily: {
-        'sans': ["Lato", 'serif'],
+        'sans': ["Lato", 'sans-serif'],
       },
     },
   },

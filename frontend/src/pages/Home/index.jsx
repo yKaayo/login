@@ -1,9 +1,28 @@
-import { useState } from "react";
-import womanDoctor from "../../assets/images/woman-doctor.webp";
+import { useRef, useState } from "react";
 import Input from "../../components/Input";
+import womanDoctor from "../../assets/images/woman-doctor.webp";
+import api from "../../services/api";
 
 export default function Home() {
   const [showPassword, setShowPassword] = useState(false);
+
+  const nameInput = useRef(null);
+  const emailInput = useRef(null);
+  const passwordInput = useRef(null);
+
+  async function createUser() {
+    try {
+      const res = await api.post("/users", {
+        name: nameInput.current.value,
+        email: emailInput.current.value,
+        password: passwordInput.current.value,
+      });
+
+      console.log(res.data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <main>
@@ -15,10 +34,7 @@ export default function Home() {
         <div className="flex flex-col justify-center items-center md:items-start gap-5 ps-10 py-5">
           <h1 className="text-5xl font-bold">Get Started Now</h1>
 
-          <form
-            className="flex flex-col items-start gap-3 pe-10 w-full"
-            action=""
-          >
+          <form className="flex flex-col items-start gap-3 pe-10 w-full">
             <Input
               for="name"
               label="Name"
@@ -26,6 +42,7 @@ export default function Home() {
               name="name"
               type="text"
               placeholder="Caio"
+              ref={nameInput}
             />
             <Input
               for="email"
@@ -34,6 +51,7 @@ export default function Home() {
               name="email"
               type="email"
               placeholder="email@email.com"
+              ref={emailInput}
             />
 
             <Input
@@ -43,6 +61,7 @@ export default function Home() {
               name="password"
               type={showPassword ? "text" : "password"}
               placeholder="caio123"
+              ref={passwordInput}
             />
             <div className="flex items-center gap-1">
               <input
@@ -54,8 +73,12 @@ export default function Home() {
               <label htmlFor="showPassword">Show password?</label>
             </div>
 
-            <div className="flex flex-col items-center w-full">
-              <button className="mt-3 px-3 py-1 w-full rounded-3xl bg-blue font-bold hover:bg-transparent border-2 border-blue duration-300 text-white hover:text-blue">
+            <div className="flex flex-col items-center w-full gap-3">
+              <button
+                onClick={createUser}
+                type="button"
+                className="mt-3 px-3 py-1 w-full rounded-3xl bg-blue font-bold hover:bg-transparent border-2 border-blue duration-300 text-white hover:text-blue"
+              >
                 Sign Up
               </button>
 
