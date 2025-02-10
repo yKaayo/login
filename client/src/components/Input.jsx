@@ -5,7 +5,7 @@ import { forwardRef } from 'react';
 const Input = forwardRef((props, ref) => {
   return (
     <div className="flex flex-col gap-1 w-full">
-      <label htmlFor={props.for}>{props.label}</label>
+      <label htmlFor={props.id}>{props.label}</label>
       <input
         ref={ref}
         id={props.id}

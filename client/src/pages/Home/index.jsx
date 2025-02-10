@@ -18,7 +18,7 @@ export default function Home() {
         password: passwordInput.current.value,
       });
 
-      console.log(res.data.message);
+      console.log(res.data);
     } catch (error) {
       console.error(error);
     }
@@ -34,9 +34,11 @@ export default function Home() {
         <div className="flex flex-col justify-center items-center md:items-start gap-5 ps-10 py-5">
           <h1 className="text-5xl font-bold">Get Started Now</h1>
 
-          <form className="flex flex-col items-start gap-3 pe-10 w-full">
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            className="flex flex-col items-start gap-3 pe-10 w-full"
+          >
             <Input
-              for="name"
               label="Name"
               id="name"
               name="name"
@@ -45,7 +47,6 @@ export default function Home() {
               ref={nameInput}
             />
             <Input
-              for="email"
               label="Email"
               id="email"
               name="email"
@@ -55,7 +56,6 @@ export default function Home() {
             />
 
             <Input
-              for="password"
               label="Password"
               id="password"
               name="password"
